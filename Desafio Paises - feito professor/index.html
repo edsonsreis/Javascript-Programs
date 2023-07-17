@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Info Paises</title>
+    <link rel="stylesheet" type="text/css" href = "style_css.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    
+
+
+
+    
+
+<script>
+    const selectField = document.getElementBYId("country_field");
+    selectField.addEventListener("change", getCountryInformation);
+
+    function getCountryInformation(){
+        const url = 'https://restcountries.com/v3.1/name/${selectField.value}?fullText=true';
+
+        fetch(url)
+            .then((resultRequest) => {
+                return resultRequest.json();
+            })
+            .then((jsonRequest) => {
+                document.getElementById("info_country").setAttribute("style","display: block");
+                document.getElementById("name").append(jsonRequest[0].altSpellings);
+                document.getElementById("capital").append(jsonRequest[0].capital);
+                document.getElementById("continente").append(jsonRequest[0].continents);
+                
+                for (key in jsonRequest[0].currencies){
+                    indiceMoeda = key;
+                }
+
+                document.getElementById("moeda").append(jsonRequest[0].currencies[indiceMoeda].name);
+
+                for (key in jsonRequest[0].languages){
+                    indiceIdioma = key;
+                }
+
+                document.getElementById("idioma").append(jsonRequest[0].languages[indiceIdioma]);
+                document.getElementById("imagem").src = jsonRequest[0].flags.png;
+
+                loadFrame(selectField.value);
+
+            })
+            ;
+    }
+
+    function loadFrame (country){
+        document.getElementById("iframe_images").setAtribute("style", "display: block");
+        const url = 'https://www.google.com.br/search?q=${country}&tbm=isch';
+        const iFrame = document.querySelector("iframe");
+        iFrame.src = url;
+    }
+
+</script>
+</body>
+</html>

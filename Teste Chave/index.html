@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste da Chave de Acesso do Unsplash</title>
+</head>
+<body>
+    <h1>Teste da Chave de Acesso do Unsplash</h1>
+    <button onclick="testUnsplashAccessKey()">Testar Chave de Acesso</button>
+    <script>
+        function testUnsplashAccessKey() {
+            var accessKey = "p6Sv_X3L18oqUgOM1w7f-PNoZiV2ESnItZALF_EoefA";
+
+            var apiUrl = "https://api.unsplash.com/photos/random?client_id=" + accessKey;
+
+            fetch(apiUrl)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    console.log(data);
+                })
+                .catch(function(error) {
+                    console.log("Erro ao fazer a solicitação:", error);
+                });
+        }
+    </script>
+</body>
+</html>
